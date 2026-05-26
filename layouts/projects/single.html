@@ -1,0 +1,76 @@
+{{ define "header" }}
+  {{ partials.Include "page-header.html" . }}
+{{ end }}
+
+{{ define "main" }}
+  {{ $page := . }}
+  {{ $post_class := "" }}
+  {{- with .File -}}
+    {{- $post_class = printf "page-%s" .ContentBaseName -}}
+  {{- end -}}
+
+  <article class="{{ $post_class }} flex-l mw8 center ph3 flex-wrap">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        {{ .CurrentSection.Title }}
+      </aside>
+      <h1 class="f1 athelas mt3 mb1">{{- .Title -}}</h1>
+      {{ if not .Date.IsZero }}
+        <time class="f6 mv4 dib tracked" {{ fmt.Printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safe.HTMLAttr }}>
+          {{- .Date | time.Format (compare.Default "January 2, 2006" .Site.Params.date_format) -}}
+        </time>
+      {{ end }}
+    </header>
+
+    {{/* Media section */}}
+    {{ if .Params.media_type }}
+      <div class="w-100 mt4 mb4">
+        {{ if eq .Params.media_type "youtube" }}
+          {{/* YouTube embed */}}
+          <div class="aspect-ratio aspect-ratio--16x9">
+            <iframe class="aspect-ratio--object" src="https://www.youtube.com/embed/{{ .Params.media_url }}" title="{{ .Title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        {{ else if eq .Params.media_type "video" }}
+          {{/* Self-hosted video */}}
+          <video controls class="w-100" preload="metadata">
+            <source src="{{ .Params.media_url }}" />
+            Your browser does not support the video tag.
+          </video>
+        {{ else if eq .Params.media_type "image" }}
+          {{/* Self-hosted image */}}
+          {{ $img := resources.Get .Params.media_url }}
+          {{ with $img }}
+            {{ $resized := .Resize "1200x" }}
+            <img src="{{ $resized.RelPermalink }}" alt="{{ $page.Title }}" class="w-100" loading="lazy" />
+          {{ else }}
+            {{/* Fallback: treat as external URL */}}
+            <img src="{{ .Params.media_url }}" alt="{{ $page.Title }}" class="w-100" loading="lazy" />
+          {{ end }}
+        {{ else if eq .Params.media_type "animation" }}
+          {{/* Animation (GIF, Lottie, etc.) */}}
+          {{ $img := resources.Get .Params.media_url }}
+          {{ with $img }}
+            <img src="{{ .RelPermalink }}" alt="{{ $page.Title }}" class="w-100" loading="lazy" />
+          {{ else }}
+            <img src="{{ .Params.media_url }}" alt="{{ $page.Title }}" class="w-100" loading="lazy" />
+          {{ end }}
+        {{ else }}
+          <p class="mid-gray i">Media type "{{ .Params.media_type }}" is not supported.</p>
+        {{ end }}
+      </div>
+    {{ end }}
+
+    {{/* Content */}}
+    <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes" | compare.Default "serif" }} f4 nested-links {{ $.Param "text_color" | compare.Default "mid-gray" }} pr4-l">
+      {{- .Content -}}
+      {{- partials.Include "tags.html" . -}}
+    </div>
+
+    {{/* Back to portfolio link */}}
+    <div class="mt5 mb4">
+      <a href="{{ "projects/" | relURL }}" class="link dim blue f5">
+        &larr; Back to Portfolio
+      </a>
+    </div>
+  </article>
+{{ end }}

@@ -1,0 +1,46 @@
+{{ with .Permalink }}
+<button id="copy-link-btn" class="ananke-social-link copy-link no-underline" title="Copy link" aria-label="Copy link to clipboard" style="cursor: pointer; background: none; border: none; padding: 0;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
+    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+  </svg>
+</button>
+<script>
+(function() {
+  var btn = document.getElementById('copy-link-btn');
+  if (!btn) return;
+  var url = {{ . }};
+  var copied = false;
+  btn.addEventListener('click', function() {
+    if (copied) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function() {
+        btn.setAttribute('title', 'Copied!');
+        btn.querySelector('svg').style.stroke = '#2ecc40';
+        copied = true;
+        setTimeout(function() {
+          btn.setAttribute('title', 'Copy link');
+          btn.querySelector('svg').style.stroke = '';
+          copied = false;
+        }, 2000);
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.setAttribute('title', 'Copied!');
+      copied = true;
+      setTimeout(function() {
+        btn.setAttribute('title', 'Copy link');
+        copied = false;
+      }, 2000);
+    }
+  });
+})();
+</script>
+{{ end }}

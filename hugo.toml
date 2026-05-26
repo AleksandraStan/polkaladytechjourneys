@@ -1,0 +1,82 @@
+baseURL = 'https://polkaladytechjourneys.com/'
+title = 'PolkaLady Tech Journeys'
+theme = "ananke"
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+# Site params
+[params]
+  author = "PolkaLady"
+  description = "Tech insights, essays, and projects from PolkaLady's journey through technology."
+  default_og_image = "/images/default-og.svg"
+  date_format = "January 2, 2006"
+  show_reading_time = true
+
+# Main navigation menu
+[[menus.main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+
+[[menus.main]]
+  name = "Articles"
+  url = "/articles/"
+  weight = 2
+
+[[menus.main]]
+  name = "Portfolio"
+  url = "/projects/"
+  weight = 3
+
+[[menus.main]]
+  name = "About"
+  url = "/about/"
+  weight = 4
+
+[[menus.main]]
+  name = "Travel Blog"
+  url = "https://polkaladyjourneys.org"
+  weight = 5
+
+# Ananke theme configuration
+[params.ananke]
+  show_recent_posts = false
+
+[params.ananke.home]
+  content_alignment = "center"
+
+[params.ananke.social]
+  icon_path = "ananke/socials/%s.svg"
+
+# Social follow links (header icons)
+[params.ananke.social.follow]
+  new_window_icon = false
+  networks = [
+    "instagram",
+    "linkedin",
+    "facebook"
+  ]
+
+# Social share links (article pages)
+[params.ananke.social.share]
+  icons = true
+  sharetext = true
+  networks = [
+    "x-twitter",
+    "linkedin",
+    "facebook",
+    "bluesky",
+    "email"
+  ]
+
+# Follow profile links - replace with actual usernames
+[params.ananke.social.networks.instagram]
+  profilelink = "https://www.instagram.com/"
+
+[params.ananke.social.networks.linkedin]
+  profilelink = "https://www.linkedin.com/in/"
+
+[params.ananke.social.networks.facebook]
+  profilelink = "https://www.facebook.com/"
