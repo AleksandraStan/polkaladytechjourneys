@@ -1,6 +1,6 @@
 +++
 title = "About"
-profile_image = "/images/profile-photo.jpg"
+profile_image = "/static/header.png"
 tagline = "Developer, Creator, Explorer"
 bio = """
 Welcome! I'm PolkaLady — a technologist passionate about building, learning, and sharing knowledge.
