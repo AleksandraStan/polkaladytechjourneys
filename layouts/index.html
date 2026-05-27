@@ -1,8 +1,10 @@
-{{ define "head" }}
+{{ define "main" }}
+
 <style>
   body.is-home {
     background-color: #000 !important;
   }
+
   .home-hero {
     display: flex;
     justify-content: center;
@@ -10,22 +12,16 @@
     min-height: calc(100vh - 60px);
     padding: 2rem;
   }
+
   .home-hero img {
     max-width: 100%;
     height: auto;
     display: block;
   }
 </style>
-{{ end }}
 
-{{ define "header" }}
-  <header>
-    {{ partials.Include "site-navigation.html" . }}
-  </header>
-{{ end }}
+<div class="home-hero">
+  <img src='{{ "header.png" | relURL }}' alt="PolkaLady Tech Journeys">
+</div>
 
-{{ define "main" }}
-  <div class="home-hero">
-    <img src="/header.png" alt="PolkaLady Tech Journeys">
-  </div>
 {{ end }}
