@@ -1,4 +1,4 @@
-baseURL = 'https://polkaladytechjourneys.com/'
+baseURL = 'https://aleksandrastan.github.io/polkaladytechjourneys/'
 title = 'PolkaLady Tech Journeys'
 theme = "ananke"
 [markup]
