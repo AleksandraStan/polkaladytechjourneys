@@ -10,7 +10,7 @@ theme = "ananke"
 [params]
   author = "PolkaLady"
   description = "Tech insights, essays, and projects from PolkaLady's journey through technology."
-  default_og_image = "/images/default-og.svg"
+  default_og_image = "/header.png"
   date_format = "January 2, 2006"
   show_reading_time = true
 
